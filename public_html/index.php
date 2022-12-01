@@ -28,7 +28,9 @@
 			while($row=mysqli_fetch_array($resultStartDate))
 				{
 					echo $row['startdate'].",".$row['enddate'];
-				}
+				$startdate=$row['startdate'];
+				$enddate=$row['enddate'];
+			}
 		?>
 	<script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
@@ -59,7 +61,8 @@
     </script>
 			<form action="index.php" method="post">
 			<label for="tagesauswahl">Bitte Startdatum wählen</label>
-				<input type="date" name="tagesauswahl" id="tagesauswahl">
+				<input type="date" name="tagesauswahl" id="tagesauswahl" min="<?php echo $startdate ?>"
+					   max="<?php echo $enddate ?>" value="<?php echo$startdate ?>">
 				<p><input name="gesendet" type="submit"></p>
 			</form>	
 	<div id="chart_div" style="width: 900px; height: 500px;"></div>	
