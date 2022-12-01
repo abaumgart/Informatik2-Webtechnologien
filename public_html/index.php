@@ -19,7 +19,16 @@
 			include 'includes/functions.inc.php';
 			include 'includes/test.inc.php';
 			include 'includes/dbconnect.inc.php';
-			
+	
+		/* Daten auslesen für den Datumspicker */
+	
+			$queryDateStartEnd = "SELECT min(date(zeitstempel)) as startdate,
+		max(date(zeitstempel)) as enddate from energieverbrauch;";
+			$resultStartDate = mysqli_query($con,$queryDateStartEnd);
+			while($row=mysqli_fetch_array($resultStartDate))
+				{
+					echo $row['startdate'].",".$row['enddate'];
+				}
 		?>
 	<script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
