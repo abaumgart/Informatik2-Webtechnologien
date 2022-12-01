@@ -49,8 +49,8 @@
       }
     </script>
 			<form action="index.php" method="post">
-				<p><input name="vor">Vorname</p>
-				<p><input name="nach">Nachname</p>
+			<label for="tagesauswahl">Bitte Startdatum wählen</label>
+				<input type="date" name="tagesauswahl" id="tagesauswahl">
 				<p><input name="gesendet" type="submit"></p>
 			</form>	
 	<div id="chart_div" style="width: 900px; height: 500px;"></div>	
