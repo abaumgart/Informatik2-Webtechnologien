@@ -6,10 +6,8 @@
 	 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
-	
-	
-		<h1>Informatik 2 im Web</h1>
-		<p>Dies wird eine kleine Webanwendung</p>
+		<h1>Informatik 2 - PHP basierte Webseite mit MySQL-Datenbankanbindung</h1>
+		<p></p>
 		<?php
 			/* Einbinden von PHP Dateien:
 			   Reihenfolge der Einbindung beachten, 
@@ -19,15 +17,13 @@
 		if(isset($_POST["gesendet"]))
 			{
 				$selektionsdatum = $_POST["tagesauswahl"];
-				echo ("Selektiertes Datum: ".$selektionsdatum."<br>");
+				// echo ("Selektiertes Datum: ".$selektionsdatum."<br>");
 			}else
 			{		
 				$selektionsdatum ="2022-06-01";
 
 			}
-	
 			include 'includes/functions.inc.php';
-			
 			include 'includes/dbconnect.inc.php';
 	
 		/* Daten auslesen für den Datumspicker */
@@ -37,9 +33,10 @@
 			$resultStartDate = mysqli_query($con,$queryDateStartEnd);
 			while($row=mysqli_fetch_array($resultStartDate))
 				{
-					echo $row['startdate'].",".$row['enddate'];
-				$startdate=$row['startdate'];
-				$enddate=$row['enddate'];
+					// Für Testzwecke die folgende Zeile deaktivieren
+					//echo $row['startdate'].",".$row['enddate'];
+					$startdate=$row['startdate'];
+					$enddate=$row['enddate'];
 			}
 		?>
 	<script type="text/javascript">
@@ -50,14 +47,14 @@
       function drawVisualization() {
         // Some raw data (not necessarily accurate)
         var data = google.visualization.arrayToDataTable([
-          ['Zeit', '01.06.2022'],
+          ['Zeit', '<?php echo($selektionsdatum) ?>'],
 			<?php
 				$queryData = "select 
 								date_format(zeitstempel, \"%H\") as 'zeitstempel',
 								wert as 'Verbrauch' 
 								from energieverbrauch 
-								where zeitstempel between '2022-06-01 01:00:00' 
-								and '2022-06-01 23:00:00';";
+								where zeitstempel between '$selektionsdatum 01:00:00' 
+								and '$selektionsdatum 23:00:00';";
 			$queryDataExec= mysqli_query($con,$queryData);
 			while($rowData=mysqli_fetch_array($queryDataExec))
 			{
